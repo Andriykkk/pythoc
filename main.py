@@ -136,9 +136,13 @@ class ASTParser:
             ast.Mult: "*",
             ast.Div: "/",
             ast.Mod: "%",
+            ast.Pow: "**",
             ast.LShift: "<<",
             ast.RShift: ">>",
             ast.FloorDiv: "//",
+            ast.BitOr: "|",
+            ast.BitAnd: "&",
+            ast.BitXor: "^",
         }.get(type(op), "?")
     
     def type_check(self, left, right, op):
@@ -276,6 +280,7 @@ class IRCompiler:
                         right = f"({right}).to_f64().unwrap()"
                         self.flags['cast_to_float'] = True
 
+                return f"{left} {node.op} {right}"
             elif node.op in ["<<", ">>"]:
                 self.flags['cast_to_float'] = True
                 if node.left.type == TypeKind.INT and node.right.type == TypeKind.INT:
@@ -283,9 +288,29 @@ class IRCompiler:
                     
                 elif node.left.type == TypeKind.FLOAT or node.right.type == TypeKind.FLOAT:
                     raise TypeError(f"Cannot perform {node.op} on floats")
+                
+                return f"{left} {node.op} {right}"
+            elif node.op in ["**"]:
+                self.flags['cast_to_float'] = True
+                if node.left.type == TypeKind.INT and node.right.type == TypeKind.INT:
+                    return f"({left}).pow({right}.to_u32().unwrap())"
+                elif node.left.type == TypeKind.FLOAT or node.right.type == TypeKind.FLOAT:
+                    if node.left.type == TypeKind.INT:
+                        left = f"({left}).to_f64().unwrap()"
+                    elif node.left.type == TypeKind.FLOAT:
+                        left = f"({left})"
 
+                    if node.right.type == TypeKind.INT:
+                        right = f"({right}).to_f64().unwrap()"
+                    elif node.right.type == TypeKind.FLOAT:
+                        right = f"({right})"
 
-            return f"{left} {node.op} {right}"
+                    return f"{left}.powf({right})"
+                
+            elif node.op in ["|", "^", "&"]:
+                if node.left.type == TypeKind.FLOAT and node.right.type == TypeKind.FLOAT:
+                    raise TypeError(f"Cannot perform {node.op} on floats")
+                return f"&({left}) {node.op} &({right})"
         
         elif isinstance(node, IRCall):
             args = [self.emit_expr(arg) for arg in node.args]

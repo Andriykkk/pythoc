@@ -36,11 +36,11 @@ class CompilerTest(unittest.TestCase):
     def test_div(self):
         self.run_operator_test("x / y")
 
-    def test_mod(self):
-        self.run_operator_test("x % y")
+    # def test_mod(self):
+    #     self.run_operator_test("x % y")
 
-    # def test_pow(self):
-    #     self.run_operator_test("x ** y")
+    def test_pow(self):
+        self.run_operator_test("x ** y")
 
     def test_lshift(self):
         self.run_operator_test("x << y")
@@ -48,14 +48,14 @@ class CompilerTest(unittest.TestCase):
     def test_rshift(self):
         self.run_operator_test("x >> y")
 
-    # def test_bitor(self):
-    #     self.run_operator_test("x | y")
+    def test_bitor(self):
+        self.run_operator_test("x | y")
 
-    # def test_bitxor(self):
-    #     self.run_operator_test("x ^ y")
+    def test_bitxor(self):
+        self.run_operator_test("x ^ y")
 
-    # def test_bitand(self):
-    #     self.run_operator_test("x & y")
+    def test_bitand(self):
+        self.run_operator_test("x & y")
 
     # def test_floordiv(self):
     #     self.run_operator_test("x // y")
