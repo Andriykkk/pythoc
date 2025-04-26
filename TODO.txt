@@ -1,0 +1,3 @@
+[ ] - create assign
+[ ] - create addition
+[ ] - write tests with debug info that compare python and compiled output from file
