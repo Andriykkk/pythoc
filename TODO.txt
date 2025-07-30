@@ -1,3 +1,0 @@
-[ ] - add all operators
-[ ] - write tests for all operators with different types
-[ ] - make proper errors and warnings
