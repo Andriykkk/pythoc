@@ -1,4 +1,0 @@
-[ ] - add all operators
-[ ] - refactor with bin op class that contain methods for both same and different types, you add check to list, and then when created it check if all combinations of types are checked and is there is a collision
-[ ] - write tests for all operators with different types
-[ ] - make proper errors and warnings
