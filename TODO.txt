@@ -1,3 +1,6 @@
-1. add global map with all variables
-2. create c++ library that implements python variables
-3. compile python to c++
+add tests
+add infinite integers
+add try, except
+add global map with all variables
+create c++ library that implements python variables
+compile python to c++

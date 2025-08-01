@@ -11,7 +11,7 @@ class Compiler:
 
     def generate_cpp_code(self):
         main_code = "\n".join(self.code)
-        return f"""#include <pyclib/pyclib.h>
+        return f"""#include "pyclib.h"
 
 int main() {{
 {main_code}
@@ -91,7 +91,7 @@ int main() {{
             if len(node.args) != 1:
                 raise NotImplementedError("print() takes exactly one argument")
             arg = self.visit(node.args[0])
-            return f"py_print({arg})"
+            return f"py_print({arg}); \n std::cout << \"\\n\";"
         else:
             raise NotImplementedError(f"Unsupported function call: {node.func_id}")
 
