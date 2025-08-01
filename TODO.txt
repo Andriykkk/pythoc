@@ -1,0 +1,3 @@
+1. add global map with all variables
+2. create c++ library that implements python variables
+3. compile python to c++
